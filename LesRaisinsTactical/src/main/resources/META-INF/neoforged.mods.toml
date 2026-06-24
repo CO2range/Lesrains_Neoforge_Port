@@ -1,0 +1,45 @@
+modLoader="javafml"
+loaderVersion="[1,)"
+license="All-Rights-Reserved"
+
+[[mods]]
+modId="lesrainstactical"
+version="${mod_version}"
+displayName="LesRaisins Tactical"
+description='''LesRaisins Armor and Tactical Equipment - Merged Mod'''
+
+[[dependencies.lesrainstactical]]
+modId="neoforge"
+type="required"
+versionRange="[21.1,)"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.lesrainstactical]]
+modId="minecraft"
+type="required"
+versionRange="[1.21.1,]"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.lesrainstactical]]
+modId="geckolib"
+type="optional"
+versionRange="[4.5,)"
+ordering="NONE"
+side="CLIENT"
+
+[[dependencies.lesrainstactical]]
+modId="player-animator"
+type="optional"
+versionRange="[1.0,]"
+ordering="NONE"
+side="CLIENT"
+
+[[authors]]
+name="xjqsh"
+when="always"
+
+[[authors]]
+name="LesRaisins Studio"
+when="always"

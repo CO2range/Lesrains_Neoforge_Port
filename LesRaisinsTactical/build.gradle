@@ -1,0 +1,159 @@
+pluginManagement {
+    repositories {
+        maven {
+            name = 'NeoForge'
+            url = 'https://maven.neoforged.net/releases'
+        }
+        mavenCentral()
+        gradlePluginPortal()
+    }
+}
+
+plugins {
+    id 'net.neoforged.gradle.userdev' version '7.0.142'
+    id 'eclipse'
+    id 'idea'
+    id 'maven-publish'
+    id 'net.neoforged.gradle.nodecpp' version '7.0.2'
+}
+
+def minecraftVersion = '1.21.1'
+def neoFormVersion = '20241027.145706'
+
+base {
+    archivesName = mod_id + '-' + minecraft_version
+}
+
+version = mod_version
+group = mod_group_id
+
+repositories {
+    maven {
+        name = 'CurseMaven'
+        url = 'https://cursemaven.com'
+        content {
+            includeGroup 'curse.maven'
+        }
+    }
+    maven {
+        name = 'GeckoLib'
+        url = 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/'
+    }
+    maven {
+        name = 'KosmX'
+        url = 'https://maven.kosmx.dev/'
+    }
+    maven {
+        name = 'Modrinth'
+        url = 'https://api.modrinth.com/maven'
+    }
+    mavenCentral()
+}
+
+dependencies {
+    implementation "net.neoforged:neoforge:${minecraftVersion}-${neoForgeVersion}"
+
+    // GeckoLib for animations
+    implementation fg.deobf("software.bernie.geckolib:geckolib-neoforge:${geckolibVersion}")
+
+    // Player Animator for animations
+    implementation fg.deobf("dev.kosmx.player-anim:player-animator-neoforge:${playerAnimatorVersion}")
+
+    // Cloth Config
+    implementation fg.deobf("me.shedaniel.cloth:cloth-config-neoforge:${clothConfigVersion}")
+
+    // JEI / EMI (using EMI as JEI successor for 1.21+)
+    compileOnly fg.deobf("org.jetbrains.emi:emi:${emiVersion}")
+
+    // TACZ Community Update compatibility
+    compileOnly fg.deobf("com.tacz:tacz-community-update:1.0.0")
+
+    // Create compatibility
+    compileOnly fg.deobf("com.simibubi:Create:${createVersion}")
+
+    // Parkour compatibility
+    compileOnly fg.deobf("com.tacz:parkour:${parkourVersion}")
+
+    // Aviation compatibility
+    compileOnly fg.deobf("com.PizzaGaming.AviationMod:Aviation:${aviationVersion}")
+
+    // Mixin extras for advanced mixin features
+    compileOnly("io.github.llamalad7:mixinextras-neoforge:${mixinExtrasVersion}")
+
+    annotationProcessor "net.neoforged:neoforgecap:${minecraftVersion}-${neoForgeVersion}"
+}
+
+minecraft {
+    neoformVersion = neoFormVersion
+    runs {
+        configureEach {
+            workingDirectory project.file('run')
+            property 'forge.logging.markers', 'REGISTRIES'
+            property 'forge.logging.console.level', 'debug'
+            property 'forge.enabledGameTestNamespaces', mod_id
+
+            mods {
+                "${mod_id}" {
+                    source sourceSets.main
+                }
+            }
+        }
+
+        client {
+            property 'forge.enabledGameTestNamespaces', mod_id
+        }
+
+        server {
+            workingDirectory project.file('run-server')
+        }
+
+        data {
+            workingDirectory project.file('run-data')
+            args '--mod', mod_id, '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
+        }
+    }
+}
+
+tasks.named('processResources', ProcessResources).configure {
+    var replaceProperties = [
+            minecraft_version: minecraftVersion,
+            minecraft_version_range: "[${minecraftVersion},${minecraftVersion.substring(0, minecraftVersion.lastIndexOf('.')) + 1})",
+            forge_version: neoForgeVersion,
+            forge_version_range: "[${neoForgeVersion},)",
+            loader_version_range: "[${neoForgeVersion},)",
+            mod_id: mod_id,
+            mod_name: mod_name,
+            mod_license: mod_license,
+            mod_version: mod_version,
+            mod_authors: mod_authors,
+            mod_description: mod_description,
+    ]
+    inputs.properties replaceProperties
+
+    filesMatching(['META-INF/neoforged.mods.toml', 'pack.mcmeta']) {
+        expand replaceProperties + [project: project]
+    }
+}
+
+tasks.named('jar', Jar).configure {
+    manifest {
+        attributes([
+                "Specification-Title": mod_id,
+                "Specification-Vendor": mod_authors,
+                "Specification-Version": "1",
+                "Implementation-Title": project.name,
+                "Implementation-Version": project.jar.archiveVersion,
+                "Implementation-Vendor": mod_authors,
+                "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+        ])
+    }
+    finalizedBy 'reobfJar'
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}
+
+java {
+    toolchain.languageVersion = JavaLanguageVersion.of(21)
+}

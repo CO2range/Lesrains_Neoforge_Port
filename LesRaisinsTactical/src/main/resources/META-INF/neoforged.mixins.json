@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "me.xjqsh.lesrainstactical.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "refmap": "lesrainstactical.refmap.json",
+  "mixins": [
+    "EffectInstanceMixin"
+  ],
+  "client": [],
+  "server": [],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
