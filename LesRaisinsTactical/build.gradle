@@ -47,11 +47,26 @@ repositories {
         name = 'Modrinth'
         url = 'https://api.modrinth.com/maven'
     }
+    exclusiveContent {
+        forRepository {
+            maven { url = "https://maven.ryanhcode.dev/releases" }
+        }
+        filter {
+            includeGroup("dev.ryanhcode.sable-companion")
+        }
+    }
     mavenCentral()
 }
 
 dependencies {
     implementation "net.neoforged:neoforge:${minecraftVersion}-${neoForgeVersion}"
+
+    // Sable Companion - official compatibility library (JiJ'd)
+    jarJar(api("dev.ryanhcode.sable-companion:sable-companion-common:[${sable_companion_version},)")) {
+        version {
+            prefer(project.sable_companion_version)
+        }
+    }
 
     // GeckoLib for animations
     implementation fg.deobf("software.bernie.geckolib:geckolib-neoforge:${geckolibVersion}")
@@ -62,20 +77,11 @@ dependencies {
     // Cloth Config
     implementation fg.deobf("me.shedaniel.cloth:cloth-config-neoforge:${clothConfigVersion}")
 
-    // JEI / EMI (using EMI as JEI successor for 1.21+)
-    compileOnly fg.deobf("org.jetbrains.emi:emi:${emiVersion}")
-
-    // TACZ Community Update compatibility
-    compileOnly fg.deobf("com.tacz:tacz-community-update:1.0.0")
-
-    // Create compatibility
+    // Create (required for Aeronautics)
     compileOnly fg.deobf("com.simibubi:Create:${createVersion}")
 
-    // Parkour compatibility
-    compileOnly fg.deobf("com.tacz:parkour:${parkourVersion}")
-
-    // Aviation compatibility
-    compileOnly fg.deobf("com.PizzaGaming.AviationMod:Aviation:${aviationVersion}")
+    // Parkour mod compatibility
+    compileOnly fg.deobf("com.modflop:parkour:${parkourVersion}")
 
     // Mixin extras for advanced mixin features
     compileOnly("io.github.llamalad7:mixinextras-neoforge:${mixinExtrasVersion}")

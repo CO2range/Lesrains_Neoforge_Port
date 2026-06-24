@@ -23,18 +23,39 @@ ordering="NONE"
 side="BOTH"
 
 [[dependencies.lesrainstactical]]
+modId="sable"
+type="required"
+versionRange="[1.0,)"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.lesrainstactical]]
 modId="geckolib"
-type="optional"
+type="required"
 versionRange="[4.5,)"
 ordering="NONE"
 side="CLIENT"
 
 [[dependencies.lesrainstactical]]
 modId="player-animator"
-type="optional"
+type="required"
 versionRange="[1.0,]"
 ordering="NONE"
 side="CLIENT"
+
+[[dependencies.lesrainstactical]]
+modId="create"
+type="optional"
+versionRange="[0.6,)"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.lesrainstactical]]
+modId="parkour"
+type="optional"
+versionRange="[1.0,)"
+ordering="NONE"
+side="BOTH"
 
 [[authors]]
 name="xjqsh"
