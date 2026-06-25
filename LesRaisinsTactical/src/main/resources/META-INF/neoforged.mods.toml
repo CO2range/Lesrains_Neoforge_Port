@@ -24,7 +24,7 @@ side="BOTH"
 
 [[dependencies.lesrainstactical]]
 modId="sable"
-type="required"
+type="optional"
 versionRange="[1.0,)"
 ordering="NONE"
 side="BOTH"

@@ -61,12 +61,8 @@ repositories {
 dependencies {
     implementation "net.neoforged:neoforge:${minecraftVersion}-${neoForgeVersion}"
 
-    // Sable Companion - official compatibility library (JiJ'd)
-    jarJar(api("dev.ryanhcode.sable-companion:sable-companion-common:[${sable_companion_version},)")) {
-        version {
-            prefer(project.sable_companion_version)
-        }
-    }
+    // Sable Companion - optional compatibility library (not JiJ'd, optional dependency)
+    compileOnly "dev.ryanhcode:sable-companion:${sable_companion_version}"
 
     // GeckoLib for animations
     implementation fg.deobf("software.bernie.geckolib:geckolib-neoforge:${geckolibVersion}")
@@ -79,6 +75,9 @@ dependencies {
 
     // Create (required for Aeronautics)
     compileOnly fg.deobf("com.simibubi:Create:${createVersion}")
+
+    // Sable (required for physics sub-levels in Aeronautics)
+    compileOnly fg.deobf("curse.maven:sable-1312371:${sableVersion}")
 
     // Parkour mod compatibility
     compileOnly fg.deobf("com.modflop:parkour:${parkourVersion}")

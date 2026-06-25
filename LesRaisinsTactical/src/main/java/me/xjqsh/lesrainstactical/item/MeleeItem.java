@@ -32,8 +32,19 @@ import java.util.Optional;
 import java.util.function.Consumer;
 
 public class MeleeItem extends Item implements IMeleeWeapon {
+    private final float pushForce;
+
     public MeleeItem() {
+        this(3.0f);
+    }
+
+    public MeleeItem(float pushForce) {
         super(new Item.Properties().stacksTo(1).durability(1).setNoRepair());
+        this.pushForce = pushForce;
+    }
+
+    public float getPushForce() {
+        return pushForce;
     }
 
     @Override

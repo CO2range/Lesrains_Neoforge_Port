@@ -5,7 +5,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import org.slf4j.Logger;
@@ -18,11 +17,10 @@ public class HoneyGlueHandler {
     private static final Logger LOGGER = LoggerFactory.getLogger("LesRaisinsTactical:Glue");
 
     public static boolean removeHoneyGlueAt(Level level, BlockPos pos) {
-        if (!SableCompat.isSableLoaded()) return false;
-
         BlockState state = level.getBlockState(pos);
+
         if (state.is(Blocks.HONEY_BLOCK)) {
-            if (SableCompat.isInSubLevel(level, pos)) {
+            if (SableCompat.isSableLoaded() && SableCompat.isInSubLevel(level, pos)) {
                 level.destroyBlock(pos, false);
                 return true;
             }
@@ -39,7 +37,7 @@ public class HoneyGlueHandler {
             BlockState adjacentState = level.getBlockState(adjacentPos);
 
             if (adjacentState.is(Blocks.HONEY_BLOCK)) {
-                if (SableCompat.isInSubLevel(level, adjacentPos)) {
+                if (SableCompat.isSableLoaded() && SableCompat.isInSubLevel(level, adjacentPos)) {
                     if (level.random.nextFloat() < 0.7f) {
                         if (level instanceof ServerLevel serverLevel) {
                             serverLevel.destroyBlock(adjacentPos, false);
@@ -87,10 +85,6 @@ public class HoneyGlueHandler {
                 }
                 removed++;
             }
-        }
-
-        if (removed > 0) {
-            LOGGER.debug("Removed {} honey glue blocks in radius", removed);
         }
 
         return removed;
