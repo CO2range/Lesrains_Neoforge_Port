@@ -23,13 +23,6 @@ ordering="NONE"
 side="BOTH"
 
 [[dependencies.lesrainstactical]]
-modId="sable"
-type="optional"
-versionRange="[1.0,)"
-ordering="NONE"
-side="BOTH"
-
-[[dependencies.lesrainstactical]]
 modId="geckolib"
 type="required"
 versionRange="[4.5,)"

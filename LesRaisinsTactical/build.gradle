@@ -47,22 +47,11 @@ repositories {
         name = 'Modrinth'
         url = 'https://api.modrinth.com/maven'
     }
-    exclusiveContent {
-        forRepository {
-            maven { url = "https://maven.ryanhcode.dev/releases" }
-        }
-        filter {
-            includeGroup("dev.ryanhcode.sable-companion")
-        }
-    }
     mavenCentral()
 }
 
 dependencies {
     implementation "net.neoforged:neoforge:${minecraftVersion}-${neoForgeVersion}"
-
-    // Sable Companion - optional compatibility library (not JiJ'd, optional dependency)
-    compileOnly "dev.ryanhcode:sable-companion:${sable_companion_version}"
 
     // GeckoLib for animations
     implementation fg.deobf("software.bernie.geckolib:geckolib-neoforge:${geckolibVersion}")
@@ -73,11 +62,8 @@ dependencies {
     // Cloth Config
     implementation fg.deobf("me.shedaniel.cloth:cloth-config-neoforge:${clothConfigVersion}")
 
-    // Create (required for Aeronautics)
+    // Create compatibility
     compileOnly fg.deobf("com.simibubi:Create:${createVersion}")
-
-    // Sable (required for physics sub-levels in Aeronautics)
-    compileOnly fg.deobf("curse.maven:sable-1312371:${sableVersion}")
 
     // Parkour mod compatibility
     compileOnly fg.deobf("com.modflop:parkour:${parkourVersion}")
