@@ -1,13 +1,10 @@
 package me.xjqsh.lesrainstactical.compat.sable;
 
-import me.xjqsh.lesrainstactical.compat.aeronautics.AeronauticsCompat;
-import me.xjqsh.lesrainstactical.init.ModItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.Mod;
-import net.neoforged.neoforge.common.NeoForge;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,10 +19,8 @@ public class SableCompat {
             Class.forName("dev.ryanhcode.sable.api.Sable");
             initialized = true;
             LOGGER.info("Sable compatibility module loaded");
-            NeoForge.EVENT_BUS.register(new AeronauticsCompat());
-            LOGGER.info("Aeronautics compatibility event handlers registered");
         } catch (ClassNotFoundException e) {
-            LOGGER.info("Sable mod not found - advanced physics features disabled");
+            LOGGER.info("Sable mod not found - physics features disabled");
         }
     }
 

@@ -1,7 +1,6 @@
 package me.xjqsh.lesrainstactical.compat;
 
-import me.xjqsh.lesrainstactical.LesRaisinsTactical;
-import me.xjqsh.lesrainstactical.compat.aviation.AviationCompat;
+import me.xjqsh.lesrainstactical LesRaisinsTactical;
 import me.xjqsh.lesrainstactical.compat.create.CreateCompat;
 import me.xjqsh.lesrainstactical.compat.parkour.ParkourCompat;
 import me.xjqsh.lesrainstactical.compat.tacz.TaczCompat;
@@ -34,10 +33,6 @@ public class ModCompat {
 
         if (ParkourCompat.isParkourLoaded()) {
             LOGGER.info("Parkour compatibility module loaded");
-        }
-
-        if (AviationCompat.isAviationLoaded()) {
-            LOGGER.info("Aviation compatibility module loaded");
         }
 
         LOGGER.info("Compatibility layer initialization complete");
