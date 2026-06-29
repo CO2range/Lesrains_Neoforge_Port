@@ -1,20 +1,8 @@
-pluginManagement {
-    repositories {
-        maven {
-            name = 'NeoForge'
-            url = 'https://maven.neoforged.net/releases'
-        }
-        mavenCentral()
-        gradlePluginPortal()
-    }
-}
-
 plugins {
-    id 'net.neoforged.gradle.userdev' version '7.0.142'
+    id 'net.neoforged.moddev'
     id 'eclipse'
     id 'idea'
     id 'maven-publish'
-    id 'net.neoforged.gradle.nodecpp' version '7.0.2'
 }
 
 def minecraftVersion = '1.21.1'
@@ -53,22 +41,16 @@ repositories {
 dependencies {
     implementation "net.neoforged:neoforge:${minecraftVersion}-${neoForgeVersion}"
 
-    // GeckoLib for animations
     implementation fg.deobf("software.bernie.geckolib:geckolib-neoforge:${geckolibVersion}")
 
-    // Player Animator for animations
     implementation fg.deobf("dev.kosmx.player-anim:player-animator-neoforge:${playerAnimatorVersion}")
 
-    // Cloth Config
     implementation fg.deobf("me.shedaniel.cloth:cloth-config-neoforge:${clothConfigVersion}")
 
-    // Create compatibility
     compileOnly fg.deobf("com.simibubi:Create:${createVersion}")
 
-    // Parkour mod compatibility
     compileOnly fg.deobf("com.modflop:parkour:${parkourVersion}")
 
-    // Mixin extras for advanced mixin features
     compileOnly("io.github.llamalad7:mixinextras-neoforge:${mixinExtrasVersion}")
 
     annotationProcessor "net.neoforged:neoforgecap:${minecraftVersion}-${neoForgeVersion}"
